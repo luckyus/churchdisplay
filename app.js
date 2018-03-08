@@ -13,16 +13,12 @@ var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
 
-app.use(express.static(path.resolve(__dirname, 'public')));
 // app.use('/public', express.static(path.join(__dirname + '/public')));
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.get('/', function(req, res) {
 	res.sendFile(path.resolve(__dirname, 'index.html'));
 });
-
-// app.get('/upperLeft', function (req, res) {
-// 	res.sendFile(path.join(__dirname));
-// });
 
 app.get('/dir', (req, res) => {
 	fs.readdir(folderUpperLeft, (err, files) => {
