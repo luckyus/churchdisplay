@@ -1,5 +1,5 @@
-var express = require('express'); 	// using express
-const fs = require('fs');			// using file system module
+var express = require('express'); // using express
+const fs = require('fs'); // using file system module
 
 var app = express();
 
@@ -16,7 +16,7 @@ var folderRight = path.resolve(__dirname, 'public/right');
 app.use(express.static(path.resolve(__dirname, 'public')));
 // app.use('/public', express.static(path.join(__dirname + '/public')));
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
 	res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
@@ -54,7 +54,7 @@ app.get('/dir3', (req, res) => {
 // 	res.send("tagId is set to " + req.params.tagId);
 // });
 
-app.get('/event1', sse, function (req, res) {
+app.get('/event1', sse, function(req, res) {
 	watch(folderUpperLeft, { recursive: true }, (evt, name) => {
 		fs.readdir(folderUpperLeft, (err, files) => {
 			// handle synology's self-created thumbnail directory (120122)
@@ -65,7 +65,7 @@ app.get('/event1', sse, function (req, res) {
 	});
 });
 
-app.get('/event2', sse, function (req, res) {
+app.get('/event2', sse, function(req, res) {
 	watch(folderLowerLeft, { recursive: true }, (evt, name) => {
 		fs.readdir(folderLowerLeft, (err, files) => {
 			var index = files.indexOf('@eaDir');
@@ -75,7 +75,7 @@ app.get('/event2', sse, function (req, res) {
 	});
 });
 
-app.get('/event3', sse, function (req, res) {
+app.get('/event3', sse, function(req, res) {
 	watch(folderRight, { recursive: true }, (evt, name) => {
 		fs.readdir(folderRight, (err, files) => {
 			var index = files.indexOf('@eaDir');
@@ -89,12 +89,12 @@ app.get('/event3', sse, function (req, res) {
 app.use('/reload', express.static(path.resolve(__dirname, 'node_modules')));
 reload(app);
 
-app.use(function (req, res) {
+app.use(function(req, res) {
 	res.statusCode = 404;
 	res.end("404!");
 });
 
-app.listen(3000, function () {
+app.listen(3000, function() {
 	fs.readdir(folderUpperLeft, (err, files) => {
 		fileListUpperLeft = files;
 		fileCountUpperLeft = files.length;
