@@ -8,7 +8,7 @@ var sse = require('server-sent-events');
 var sleep = require('system-sleep');
 var watch = require('node-watch');
 var reload = require('reload');
-
+//
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
