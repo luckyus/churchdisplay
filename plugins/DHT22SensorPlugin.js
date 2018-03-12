@@ -40,8 +40,10 @@ function connectHardware() {
 			var readout = sensorDriver.read();
 			model.temperature.value = parseFloat(readout.temperature.toFixed(2));
 			model.humidity.value = parseFloat(readout.humidity.toFixed(2));
+			
 			// showValue();
-
+			console.info('Temperature: %s C, humidity %s \%', model.temperature.value, model.humidity.value);
+			
 			setTimeout(function() {
 				sensor.read();
 			}, localParams.frequency);
