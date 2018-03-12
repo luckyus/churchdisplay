@@ -193,6 +193,28 @@
 				var timeout = (then.getTime() - now.getTime());
 				setTimeout(function() { window.location.reload(true); }, timeout);
 			}
+
+			//
+			// websocket to update the temperature (180312)
+			//
+			function subscribeToWs(url, msg) {
+				var url = 'ws://outdoormonitor.local:3080/api/v1/sensors/temperature';
+				var socket = new WebSocket(url);
+				var $temp = document.getElementById('temperature');
+				socket.onmessage = function(event) {
+					var result = JSON.parse(event.data);
+					$temp.innerHTML = result.value;
+					console.log(result);
+				};
+				socket.onerror = function(error) {
+					console.log('webSocket Error: ' + error);
+				};
+				socket.onopen = function(event) {
+					if (msg) {
+						socket.send(msg);
+					}
+				};
+			}
 		});
 	</script>
 </body>

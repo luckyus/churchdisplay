@@ -8,8 +8,8 @@ var sleep = require('system-sleep');
 var watch = require('node-watch');
 var reload = require('reload');
 
-// var model = require(path.resolve(__dirname, 'model.json'));
-var model = require('./model/model');
+var model = require('./model/model.js');
+var wsServer = require('./servers/websockets');
 
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
@@ -99,7 +99,7 @@ app.use(function(req, res) {
 	res.end("404!");
 });
 
-app.listen(model.port, function() {
+var server = app.listen(model.port, function() {
 	fs.readdir(folderUpperLeft, (err, files) => {
 		fileListUpperLeft = files;
 		fileCountUpperLeft = files.length;
@@ -113,9 +113,7 @@ app.listen(model.port, function() {
 		fileListRight = files;
 		fileCountRight = files.length;
 	});
+
+	wsServer.listen(server);
 	console.log(`Church Display - listening on port ${model.port}!`);
-	
-	setInterval(() => {
-		console.info('app.js Temperature: %sC, humidity %s\%', model.temperature.value, model.humidity.value);
-	}, 2000);
 });

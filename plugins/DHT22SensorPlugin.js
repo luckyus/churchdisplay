@@ -1,5 +1,5 @@
 var path = require('path');
-var model = require('./../model/model');
+var model = require('./../model/model.js');
 
 var interval, sensor;
 var pluginName = 'Temperature & Humidity';
