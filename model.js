@@ -29,4 +29,4 @@ module.exports = {
 		"gpio": 0,
 		"value": "iGuardPayroll.com"
 	}
-}
+};
