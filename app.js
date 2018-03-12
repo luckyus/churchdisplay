@@ -8,7 +8,8 @@ var sleep = require('system-sleep');
 var watch = require('node-watch');
 var reload = require('reload');
 
-var model = require(path.resolve(__dirname, 'model.json'));
+// var model = require(path.resolve(__dirname, 'model.json'));
+var model = require('./model/model');
 
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');

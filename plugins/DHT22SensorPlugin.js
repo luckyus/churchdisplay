@@ -1,5 +1,5 @@
 var path = require('path');
-var model = require('./../model.json');
+var model = require('./../model/model');
 
 var interval, sensor;
 var pluginName = 'Temperature & Humidity';
@@ -43,7 +43,7 @@ function connectHardware() {
 			
 			// showValue();
 			console.info('Temperature: %s C, humidity %s \%', model.temperature.value, model.humidity.value);
-			
+
 			setTimeout(function() {
 				sensor.read();
 			}, localParams.frequency);
