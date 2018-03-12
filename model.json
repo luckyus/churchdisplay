@@ -1,4 +1,4 @@
-module.exports = {
+{
 	"name": "Church Outdoor Display",
 	"description": "Hop Yat Church's Outdoor Display with Sensors",
 	"port": 3000,

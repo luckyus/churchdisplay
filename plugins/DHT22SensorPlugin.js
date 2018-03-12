@@ -1,4 +1,4 @@
-var model = require('./model.js');
+var model = require('./model.json');
 
 var interval, sensor;
 var pluginName = 'Temperature & Humidity';
