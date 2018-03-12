@@ -19,6 +19,8 @@ exports.listen = function(server) {
 		try {
 			interval = setInterval(function() {
 				if (currentValue != model.temperature.value) {
+					console.log('websocket: temperature changed!');
+					
 					currentValue = model.temperature.value;
 					ws.send(JSON.stringify(model.temperature), function() {});
 				}

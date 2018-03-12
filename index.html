@@ -197,7 +197,7 @@
 			//
 			// websocket to update the temperature (180312)
 			//
-			function subscribeToWs(url, msg) {
+			function subscribeToWs(msg) {
 				var url = 'ws://outdoormonitor.local:3080/api/v1/sensors/temperature';
 				var socket = new WebSocket(url);
 				var $temp = document.getElementById('temperature');
@@ -215,6 +215,8 @@
 					}
 				};
 			}
+
+			subscribeToWs();
 		});
 	</script>
 </body>
