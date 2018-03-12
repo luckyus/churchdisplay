@@ -114,4 +114,8 @@ app.listen(model.port, function() {
 		fileCountRight = files.length;
 	});
 	console.log(`Church Display - listening on port ${model.port}!`);
+	
+	setInterval(() => {
+		console.info('app.js Temperature: %sC, humidity %s\%', model.temperature.value, model.humidity.value);
+	}, 2000);
 });
