@@ -1,13 +1,14 @@
 var express = require('express'); // using express
-const fs = require('fs'); // using file system module
-
 var app = express();
 
+const fs = require('fs'); // using file system module
 var path = require('path');
 var sse = require('server-sent-events');
 var sleep = require('system-sleep');
 var watch = require('node-watch');
 var reload = require('reload');
+
+var model = require('./model.json');
 
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
@@ -97,7 +98,7 @@ app.use(function(req, res) {
 	res.end("404!");
 });
 
-app.listen(3000, function() {
+app.listen(model.port, function() {
 	fs.readdir(folderUpperLeft, (err, files) => {
 		fileListUpperLeft = files;
 		fileCountUpperLeft = files.length;
@@ -111,5 +112,5 @@ app.listen(3000, function() {
 		fileListRight = files;
 		fileCountRight = files.length;
 	});
-	console.log('Church Display - listening on port 3000!');
+	console.log(`Church Display - listening on port ${model.port}!`);
 });

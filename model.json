@@ -1,7 +1,7 @@
 {
 	"name": "Church Outdoor Display",
 	"description": "Hop Yat Church's Outdoor Display with Sensors",
-	"port": 3000,
+	"port": 3080,
 	"temperature": {
 		"name": "temperature",
 		"gpio": 12,
