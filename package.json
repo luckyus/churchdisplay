@@ -1,20 +1,24 @@
 {
-  "name": "display",
-  "version": "1.0.0",
-  "description": "church display",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "brian leung",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.16.2",
-    "express-generator": "^4.15.5",
-    "node-watch": "^0.5.5",
-    "reload": "^2.2.2",
-    "server-sent-events": "^1.0.1",
-    "system-sleep": "^1.3.6",
-    "ws": "^5.0.0"
-  }
+	"name": "display",
+	"version": "1.0.0",
+	"description": "church display",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "brian leung",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.16.2",
+		"express-generator": "^4.15.5",
+		"node-watch": "^0.5.5",
+		"reload": "^2.2.2",
+		"server-sent-events": "^1.0.1",
+		"system-sleep": "^1.3.6",
+		"ws": "^5.0.0"
+	},
+	"optionalDependencies": {
+		"onoff": "^2.0.0",
+		"node-dht-sensor": "^0.0.8"
+	}
 }
