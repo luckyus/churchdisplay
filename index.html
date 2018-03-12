@@ -33,6 +33,14 @@
 			height: 1080px;
 			margin-left: 5px;
 		}
+
+		div.temperature {
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			color: red;
+			font-size: 200%;
+		}
 	</style>
 </head>
 
@@ -49,7 +57,9 @@
 	</div>
 	<div style='float: left; width: 49.5%;'>
 		<img id='imgRight' class="ul right"></img>
-		<div style='position: fixed; bottom: 0; right: 0;'>Fuck Off!</div>
+		<div class='temperature'>
+			Fuck Off!
+		</div>
 	</div>
 	<script type="text/javascript">
 		$("document").ready(function() {
