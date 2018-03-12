@@ -200,7 +200,7 @@
 			function subscribeToWs(msg) {
 				var url = 'ws://outdoormonitor.local:3080/api/v1/sensors/temperature';
 				var socket = new WebSocket(url);
-				var $temp = document.getElementById('temperature');
+				var $temp = document.getElementById('temp');
 				socket.onmessage = function(event) {
 					var result = JSON.parse(event.data);
 					$temp.innerHTML = result.value;
