@@ -1,5 +1,4 @@
-var model = require('./../../resources/model');
-var utils = require('./../../utils/utils.js');
+var model = require('./model.js');
 
 var interval, sensor;
 var pluginName = 'Temperature & Humidity';
@@ -57,11 +56,15 @@ function connectHardware() {
 
 function simulate() {
 	interval = setInterval(function() {
-		model.temperature.value = utils.randomInt(0, 40);
-		model.humidity.value = utils.randomInt(0, 100);
+		model.temperature.value = randomInt(0, 40);
+		model.humidity.value = randomInt(0, 100);
 		showValue();
 	}, localParams.frequency);
 	console.info('Simulated %s sensor started!', pluginName);
+}
+
+function randomInt(low, high) {
+	return Math.floor(Math.random() * (high - low + 1) + low);
 }
 
 function showValue() {
