@@ -8,10 +8,13 @@ var sse = require('server-sent-events');
 var sleep = require('system-sleep');
 var watch = require('node-watch');
 var reload = require('reload');
-//
+
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
+
+var dhtPlugin = require('./plugins/DHT22SensorPlugin');
+dhtPlugin.start({ 'simulate': false, 'frequency': 2000 });
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 // app.use('/public', express.static(path.join(__dirname + '/public')));
