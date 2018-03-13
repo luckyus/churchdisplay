@@ -14,7 +14,7 @@ exports.listen = function(server) {
 		console.info(url);
 
 		var interval;
-		var currentValue = 0;
+		var currentValue = 12345;
 
 		try {
 			interval = setInterval(function() {
