@@ -14,14 +14,13 @@ exports.listen = function(server) {
 		console.info(url);
 
 		var interval;
-		var currentValue = 0;
+		var currentValue = 12345;
 
 		try {
 			interval = setInterval(function() {
 				if (currentValue != model.temperature.value) {
-					console.log('websocket: temperature changed (' + model.temperature.value + ')!');
-
 					currentValue = model.temperature.value;
+					console.log('websocket: temperature changed (' + currentValue + ')!');
 					ws.send(JSON.stringify(model.temperature), function() {});
 				}
 			}, 2000);
