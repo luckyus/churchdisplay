@@ -198,7 +198,7 @@
 			// websocket to update the temperature (180312)
 			//
 			function subscribeToWs(msg) {
-				var url = 'ws://outdoormonitor.local:3080/';
+				var url = 'ws://churchdisplay.local:3080/';
 				var socket = new WebSocket(url);
 				var $temp = document.getElementById('temp');
 				socket.onmessage = function(event) {
