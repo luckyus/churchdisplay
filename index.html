@@ -200,7 +200,7 @@
 			function subscribeToWs(msg) {
 				var hostName = window.location.hostname;
 				var url = 'ws://' + hostName + ':3080/';
-				console.log(hostName);
+				console.log(url);
 				var socket = new WebSocket(url);
 				var $temp = document.getElementById('temp');
 				socket.onmessage = function(event) {
