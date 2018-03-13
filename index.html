@@ -198,8 +198,7 @@
 			// websocket to update the temperature (180312)
 			//
 			function subscribeToWs(msg) {
-				var hostName = window.location.hostname;
-				var url = 'ws://' + hostName + ':3080/';
+				var url = 'ws://' + location.hostname + (location.port ? ':' + location.port : '');
 				console.log(url);
 				var socket = new WebSocket(url);
 				var $temp = document.getElementById('temp');
