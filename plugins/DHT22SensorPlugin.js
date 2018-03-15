@@ -1,4 +1,4 @@
-var app = require('express');
+var app = require('express')();
 var path = require('path');
 // var model = require('./../model/model.js');
 

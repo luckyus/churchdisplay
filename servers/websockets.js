@@ -1,5 +1,5 @@
 var WebSocketServer = require('ws').Server;
-var app = require('express');
+var app = require('express')();
 // var model = require('./../model/model.js');
 
 exports.listen = function(server) {
