@@ -1,5 +1,6 @@
+var app = require('express');
 var path = require('path');
-var model = require('./../model/model.js');
+// var model = require('./../model/model.js');
 
 var interval, sensor;
 var pluginName = 'Temperature & Humidity';
@@ -34,14 +35,14 @@ function connectHardware() {
 	var sensorDriver = require('node-dht-sensor');
 	var sensor = {
 		initialize: function() {
-			return sensorDriver.initialize(22, model.temperature.gpio);
+			return sensorDriver.initialize(22, app.locals.model.temperature.gpio);
 		},
 		read: function() {
 			var readout = sensorDriver.read();
-			model.temperature.value = parseFloat(readout.temperature.toFixed(2));
-			model.humidity.value = parseFloat(readout.humidity.toFixed(2));
+			app.locals.model.temperature.value = parseFloat(readout.temperature.toFixed(2));
+			app.locals.model.humidity.value = parseFloat(readout.humidity.toFixed(2));
 
-			console.info('Temperature: %s C, humidity %s \%', model.temperature.value.toFixed(2), model.humidity.value.toFixed(2));
+			console.info('Temperature: %s C, humidity %s \%', app.locals.model.temperature.value.toFixed(2), app.locals.model.humidity.value.toFixed(2));
 
 			setTimeout(function() {
 				sensor.read();
@@ -58,8 +59,8 @@ function connectHardware() {
 
 function simulate() {
 	interval = setInterval(function() {
-		model.temperature.value = randomInt(0, 40);
-		model.humidity.value = randomInt(0, 100);
+		app.locals.model.temperature.value = randomInt(0, 40);
+		app.locals.model.humidity.value = randomInt(0, 100);
 		showValue();
 	}, localParams.frequency);
 	console.info('Simulated %s sensor started!', pluginName);
