@@ -9,16 +9,16 @@ var watch = require('node-watch');
 var reload = require('reload');
 
 var model = require('./model/model.js');
-app.locals.model = model;
 
 var wsServer = require('./servers/websockets');
+wsServer.start(model);
+
+var dhtPlugin = require('./plugins/DHT22SensorPlugin');
+dhtPlugin.start(model, { 'simulate': true, 'frequency': 2000 });
 
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
-
-var dhtPlugin = require('./plugins/DHT22SensorPlugin');
-dhtPlugin.start({ 'simulate': true, 'frequency': 2000 });
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 // app.use('/public', express.static(path.join(__dirname + '/public')));

@@ -1,6 +1,10 @@
 var WebSocketServer = require('ws').Server;
-var app = require('express')();
+var model;
 // var model = require('./../model/model.js');
+
+exports.start = function(m) {
+	model = m;
+};
 
 exports.listen = function(server) {
 	var wss = new WebSocketServer({ server: server });
@@ -19,10 +23,10 @@ exports.listen = function(server) {
 
 		try {
 			interval = setInterval(function() {
-				if (currentValue != app.locals.model.temperature.value) {
-					currentValue = app.locals.model.temperature.value;
+				if (currentValue != model.temperature.value) {
+					currentValue = model.temperature.value;
 					console.log('websocket: temperature changed (' + currentValue + ')!');
-					ws.send(JSON.stringify(app.locals.model.temperature), function() {});
+					ws.send(JSON.stringify(model.temperature), function() {});
 				}
 			}, 2000);
 		} catch (e) {
