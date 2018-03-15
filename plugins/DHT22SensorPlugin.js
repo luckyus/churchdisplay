@@ -2,6 +2,7 @@ var app = require('express')();
 var path = require('path');
 
 var model;
+var proxy;
 // var model = require('./../model/model.js');
 
 var interval, sensor;
@@ -11,9 +12,18 @@ var localParams = {
 	'frequency': 5000
 };
 
+var handler = {
+	set(target, key, value) {
+		console.log(`Proxy: Setting ${key} as ${value}!`);
+		target[key] = value;
+	}
+};
+
 exports.start = function(m, params) {
 	localParams = params;
 	model = m;
+
+	proxy = new Proxy(model.temperature, handler);
 
 	// debug
 	console.log('simulate: %s...', localParams.simulate);
@@ -42,7 +52,7 @@ function connectHardware() {
 		},
 		read: function() {
 			var readout = sensorDriver.read();
-			model.temperature.value = parseFloat(readout.temperature.toFixed(2));
+			proxy.value = parseFloat(readout.temperature.toFixed(2));
 			model.humidity.value = parseFloat(readout.humidity.toFixed(2));
 
 			console.info('Temperature: %s C, humidity %s \%', model.temperature.value.toFixed(2), model.humidity.value.toFixed(2));
@@ -62,9 +72,8 @@ function connectHardware() {
 
 function simulate() {
 	interval = setInterval(function() {
-		model.temperature.value = randomInt(0, 40);
-		model.humidity.value = randomInt(0, 100);
-		showValue();
+		proxy.temperature.value = randomInt(0, 40);
+		proxy.humidity.value = randomInt(0, 100);
 	}, localParams.frequency);
 	console.info('Simulated %s sensor started!', pluginName);
 }
