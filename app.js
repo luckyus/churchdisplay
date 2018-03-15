@@ -14,7 +14,7 @@ var wsServer = require('./servers/websockets');
 wsServer.start(model);
 
 var dhtPlugin = require('./plugins/DHT22SensorPlugin');
-dhtPlugin.start(model, { 'simulate': true, 'frequency': 2000 });
+dhtPlugin.start(model, { 'simulate': false, 'frequency': 2000 });
 
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
