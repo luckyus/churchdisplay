@@ -15,7 +15,7 @@ var localParams = {
 var handler = {
 	set(target, key, value) {
 		console.log(`Proxy: Setting ${key} as ${value}!`);
-		target[key] = value;
+		target[key] = value - 1;
 	}
 };
 
