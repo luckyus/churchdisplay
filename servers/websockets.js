@@ -6,6 +6,10 @@ exports.start = function(m) {
 	model = m;
 };
 
+exports.onModelChange = () => {
+	console.log(`websocket.js onModelChange: temperature: ${model.temperature.value}!`);
+};
+
 exports.listen = function(server) {
 	var wss = new WebSocketServer({ server: server });
 	console.info('WebSocket server started...');

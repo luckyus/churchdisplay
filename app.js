@@ -13,8 +13,17 @@ var model = require('./model/model.js');
 var wsServer = require('./servers/websockets');
 wsServer.start(model);
 
+// DHT22
+var handler = {
+	set(target, key, value) {
+		wsServer.onModelChange();
+		// console.log(`Proxy: Setting ${key} as ${value}!`);
+		target[key] = value - 1;
+	}
+};
+
 var dhtPlugin = require('./plugins/DHT22SensorPlugin');
-dhtPlugin.start(model, { 'simulate': false, 'frequency': 2000 });
+dhtPlugin.start(model, { 'simulate': false, 'frequency': 2000 }, handler);
 
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');

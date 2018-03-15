@@ -12,14 +12,7 @@ var localParams = {
 	'frequency': 5000
 };
 
-var handler = {
-	set(target, key, value) {
-		console.log(`Proxy: Setting ${key} as ${value}!`);
-		target[key] = value - 1;
-	}
-};
-
-exports.start = function(m, params) {
+exports.start = function(m, params, handler) {
 	localParams = params;
 	model = m;
 
