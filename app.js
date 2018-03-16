@@ -1,20 +1,42 @@
 var express = require('express'); // using express
-const fs = require('fs'); // using file system module
-
 var app = express();
 
+const fs = require('fs'); // using file system module
 var path = require('path');
 var sse = require('server-sent-events');
 var sleep = require('system-sleep');
 var watch = require('node-watch');
 var reload = require('reload');
-//
+
+var model = require('./model/model.js');
+
+var wsServer = require('./servers/websockets');
+wsServer.start(model);
+
+// DHT22
+var handler = {
+	set(target, key, value) {
+		target[key] = value;
+		wsServer.onModelChange();
+	}
+};
+
+var dhtPlugin = require('./plugins/DHT22SensorPlugin');
+dhtPlugin.start(model, { 'simulate': false, 'frequency': 2000 }, handler);
+
+var coapPlugin = require('./plugins/coapPlugin');
+coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
+
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
 
 app.use(express.static(path.resolve(__dirname, 'public')));
-// app.use('/public', express.static(path.join(__dirname + '/public')));
+
+app.get('/coapDevice/sensors/co2').get((req, res, next) => {
+	req.result = model.things.coapDevice.sensors.co2;
+	next();
+});
 
 app.get('/', function(req, res) {
 	res.sendFile(path.resolve(__dirname, 'index.html'));
@@ -90,11 +112,15 @@ app.use('/reload', express.static(path.resolve(__dirname, 'node_modules')));
 reload(app);
 
 app.use(function(req, res) {
-	res.statusCode = 404;
-	res.end("404!");
+	if (req.result) {
+		res.send(req.result);
+	} else {
+		res.statusCode = 404;
+		res.end("404!");
+	}
 });
 
-app.listen(3000, function() {
+var server = app.listen(model.port, function() {
 	fs.readdir(folderUpperLeft, (err, files) => {
 		fileListUpperLeft = files;
 		fileCountUpperLeft = files.length;
@@ -108,5 +134,7 @@ app.listen(3000, function() {
 		fileListRight = files;
 		fileCountRight = files.length;
 	});
-	console.log('Church Display - listening on port 3000!');
+
+	wsServer.listen(server);
+	console.log(`Church Display - listening on port ${model.port}!`);
 });
