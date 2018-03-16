@@ -21,8 +21,10 @@ var handler = {
 	}
 };
 
+/*
 var dhtPlugin = require('./plugins/DHT22SensorPlugin');
 dhtPlugin.start(model, { 'simulate': false, 'frequency': 2000 }, handler);
+*/
 
 var coapPlugin = require('./plugins/coapPlugin');
 coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
@@ -33,7 +35,7 @@ var folderRight = path.resolve(__dirname, 'public/right');
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 
-app.get('/coapDevice/sensors/co2').get((req, res, next) => {
+app.get('/coapDevice/sensors/co2', (req, res, next) => {
 	req.result = model.things.coapDevice.sensors.co2;
 	next();
 });
