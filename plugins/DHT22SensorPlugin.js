@@ -1,5 +1,6 @@
 var app = require('express')();
 var path = require('path');
+var helper = require('./../helpers/helper');
 
 var model;
 var proxy;
@@ -65,14 +66,10 @@ function connectHardware() {
 
 function simulate() {
 	interval = setInterval(function() {
-		proxy.temperature.value = randomInt(0, 40);
-		proxy.humidity.value = randomInt(0, 100);
+		proxy.temperature.value = helper.randomInt(0, 40);
+		proxy.humidity.value = helper.randomInt(0, 100);
 	}, localParams.frequency);
 	console.info('Simulated %s sensor started!', pluginName);
-}
-
-function randomInt(low, high) {
-	return Math.floor(Math.random() * (high - low + 1) + low);
 }
 
 function showValue() {

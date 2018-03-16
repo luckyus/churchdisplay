@@ -16,21 +16,27 @@ wsServer.start(model);
 // DHT22
 var handler = {
 	set(target, key, value) {
+		target[key] = value;
 		wsServer.onModelChange();
-		// console.log(`Proxy: Setting ${key} as ${value}!`);
-		target[key] = value - 1;
 	}
 };
 
 var dhtPlugin = require('./plugins/DHT22SensorPlugin');
 dhtPlugin.start(model, { 'simulate': false, 'frequency': 2000 }, handler);
 
+var coapPlugin = require('./plugins/coapPlugin');
+coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
+
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
 
 app.use(express.static(path.resolve(__dirname, 'public')));
-// app.use('/public', express.static(path.join(__dirname + '/public')));
+
+app.get('/coapDevice/sensors/co2').get((req, res, next) => {
+	req.result = model.things.coapDevice.sensors.co2;
+	next();
+});
 
 app.get('/', function(req, res) {
 	res.sendFile(path.resolve(__dirname, 'index.html'));
@@ -106,8 +112,12 @@ app.use('/reload', express.static(path.resolve(__dirname, 'node_modules')));
 reload(app);
 
 app.use(function(req, res) {
-	res.statusCode = 404;
-	res.end("404!");
+	if (req.result) {
+		res.send(req.result);
+	} else {
+		res.statusCode = 404;
+		res.end("404!");
+	}
 });
 
 var server = app.listen(model.port, function() {
