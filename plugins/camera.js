@@ -1,8 +1,7 @@
 var raspiCam = require('raspicam');
-var camera;
+var camera = new raspiCam({ 'mode': 'photo', 'output': 'image.jpg' });
 
 exports.start = function(opts) {
-	camera = new raspiCam(opts);
 	camera.start();
 };
 
