@@ -7,9 +7,7 @@ var sse = require('server-sent-events');
 var sleep = require('system-sleep');
 var watch = require('node-watch');
 var reload = require('reload');
-
 var model = require('./model/model.js');
-
 var wsServer = require('./servers/websockets');
 wsServer.start(model);
 
@@ -28,6 +26,9 @@ dhtPlugin.start(model, { 'simulate': false, 'frequency': 2000 }, handler);
 
 var coapPlugin = require('./plugins/coapPlugin');
 coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
+
+var camera = require('./plugins/camera');
+camera.start({ 'mode': 'photo', 'output': 'image.jpg' });
 
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
