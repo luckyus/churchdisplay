@@ -49,7 +49,8 @@
 	<div style='float: left; width: 50%; padding-right: 5px;'>
 		<div style='float: right;'>
 			<div style='height: 540px;'>
-				<img id='imgUpperLeft' class="ul left"></img>
+				<!-- <img id='imgUpperLeft' class="ul left"></img> -->
+				<img id='imgCamera' class="ul left"></img>
 			</div>
 			<div style='margin-top: 5px;'>
 				<img id='imgLowerLeft' class="ul left"></img>
@@ -99,11 +100,19 @@
 				}
 			};
 
+			var sourcePhoto = new EventSource('./eventPhoto');
+			sourcePhoto.onmessage = (event) => {
+				console.log('new camera photo!!!');
+				var fileName = event.data + '?' + now.getTime();
+				$('#imgCamera').attr('src', './camera/' + fileName);
+			};
+
 			fetch('./dir')
 				.then((resp) => resp.json())
 				.then(function(data) {
 					fileListUpperLeft = data;
 					$('#imgUpperLeft').attr('src', './upperLeft/' + fileListUpperLeft[0]);
+					$('#imgCamera').attr('src', './upperLeft/' + fileListUpperLeft[0]);
 				});
 
 			fetch('./dir2')
@@ -126,19 +135,21 @@
 
 			setInterval(function() {
 				var $img = $('#imgUpperLeft');
-				var path = './upperLeft/';
-				var fileList = fileListUpperLeft;
-				if (fileList.length == 1) {
-					$img.attr('src', path + fileList[0]);
-				} else if (fileList.length > 1) {
-					$img.fadeOut(400, function() {
-						if (++index1 >= fileList.length) {
-							index1 = 0;
-						}
-						$img.attr('src', path + fileList[index1]);
-					}).load(function() {
-						$(this).fadeIn(400);
-					});
+				if ($img != undefined) {
+					var path = './upperLeft/';
+					var fileList = fileListUpperLeft;
+					if (fileList.length == 1) {
+						$img.attr('src', path + fileList[0]);
+					} else if (fileList.length > 1) {
+						$img.fadeOut(400, function() {
+							if (++index1 >= fileList.length) {
+								index1 = 0;
+							}
+							$img.attr('src', path + fileList[index1]);
+						}).load(function() {
+							$(this).fadeIn(400);
+						});
+					}
 				}
 			}, 30890);
 

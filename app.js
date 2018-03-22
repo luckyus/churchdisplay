@@ -27,12 +27,13 @@ var coapPlugin = require('./plugins/coapPlugin');
 coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
 */
 
-var camera = require('./plugins/camera');
-camera.start({ mode: 'timelapse', output: 'image%04d.jpg', t: 30000, tl: 2000 });
-
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
+var folderCamera = path.resolve(__dirname, 'public/camera');
+
+var camera = require('./plugins/camera');
+camera.start({ mode: 'timelapse', output: folderCamera + '/image.jpg', t: 60000, tl: 5000 });
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 
@@ -107,6 +108,12 @@ app.get('/event3', sse, function(req, res) {
 			if (index > -1) files.splice(index, 1);
 			res.sse(`data: ${JSON.stringify(files)}\n\n`);
 		});
+	});
+});
+
+app.get('/eventPhoto', sse, function(req, res) {
+	watch(folderCamera, { recursive: true }, (evt, name) => {
+		res.sse();
 	});
 });
 

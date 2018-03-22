@@ -6,6 +6,10 @@ exports.start = function(opts) {
 	console.log(opts);
 	camera = new raspiCam(opts);
 	camera.start();
+
+	camera.on('start', function() {
+		console.log('starting camera...');
+	});		
 };
 
 exports.stop = function() {
@@ -13,9 +17,6 @@ exports.stop = function() {
 };
 
 /*
-camera.on('start', function() {
-	console.log('starting camera...');
-});
 
 camera.on("read", function(err, timestamp, filename) {
 
