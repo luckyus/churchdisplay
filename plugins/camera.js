@@ -7,7 +7,7 @@ var proc;
 exports.start = function(opts) {
 	console.log('starting carema...');
 	console.log(opts);
-	proc = spawn('raspistill', opts);	
+	proc = child_process.spawn('raspistill', opts);	
 
 	/*
 	console.log('starting camera...');
