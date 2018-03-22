@@ -2,11 +2,13 @@ var raspiCam = require('raspicam'); // https://github.com/troyth/node-raspicam
 var camera;
 
 var spawn = require('child_process').spawn;
+var args;
 var isStop = false;
 
 exports.start = function(opts) {
 	isStop = false;
-	startStreaming(opts);
+	args = opts;
+	startStreaming();
 
 	/*
 	console.log('starting camera...');
@@ -29,16 +31,15 @@ exports.stop = function() {
 	// camera.stop();
 };
 
-function startStreaming(opts) {
-	var args = opts;
+function startStreaming() {
 	console.log('spawn...');
 	console.log(args);
 	spawn('raspistill', args);
 	console.log('spawn done!');
 
 	if (isStop == false) {
-		setTimeout((args) => {
-			startStreaming(args);
+		setTimeout(() => {
+			startStreaming();
 		}, 1000);
 	}
 }
