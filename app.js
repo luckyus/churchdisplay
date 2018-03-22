@@ -8,6 +8,7 @@ var sleep = require('system-sleep');
 var watch = require('node-watch');
 var reload = require('reload');
 var model = require('./model/model.js');
+
 var wsServer = require('./servers/websockets');
 wsServer.start(model);
 
@@ -115,7 +116,7 @@ app.get('/event3', sse, function(req, res) {
 
 app.get('/eventPhoto', sse, function(req, res) {
 	watch(folderCamera, { recursive: true }, (evt, name) => {
-		res.sse();
+		res.sse('');
 	});
 });
 
