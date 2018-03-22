@@ -6,7 +6,7 @@ var isStop = false;
 
 exports.start = function(opts) {
 	isStop = false;
-	startStraming(opts);
+	startStreaming(opts);
 
 	/*
 	console.log('starting camera...');
@@ -29,11 +29,15 @@ exports.stop = function() {
 	// camera.stop();
 };
 
-function startStraming(opts) {
+function startStreaming(opts) {
+
+	console.log('startStreaming...');
+
 	spawn('raspistill', opts);
+
 	if (isStop == false) {
 		setTimeout((opts) => {
-			startStraming(opts);
+			startStreaming(opts);
 		}, 100);
 	}
 }
