@@ -2,6 +2,7 @@ var raspiCam = require('raspicam'); // https://github.com/troyth/node-raspicam
 var camera;
 
 var child_process = require('child_process');
+var proc;
 
 exports.start = function(opts) {
 	console.log('starting carema...');
