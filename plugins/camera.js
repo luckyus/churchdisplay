@@ -3,6 +3,7 @@ var camera;
 
 exports.start = function(opts) {
 	console.log('starting camera...');
+	console.log(opts);
 	camera = new raspiCam(opts);
 	camera.start();
 };
