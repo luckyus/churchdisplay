@@ -7,7 +7,7 @@ exports.start = function(m) {
 };
 
 exports.onModelChange = () => {
-	console.log(`websocket.js onModelChange: temperature: ${model.temperature.value}!`);
+	// console.log(`websocket.js onModelChange: temperature: ${model.temperature.value}!`);
 };
 
 exports.listen = function(server) {
@@ -29,7 +29,7 @@ exports.listen = function(server) {
 			interval = setInterval(function() {
 				if (currentValue != model.temperature.value) {
 					currentValue = model.temperature.value;
-					console.log('websocket: temperature changed (' + currentValue + ')!');
+					// console.log('websocket: temperature changed (' + currentValue + ')!');
 					ws.send(JSON.stringify(model.temperature), function() {});
 				}
 			}, 2000);

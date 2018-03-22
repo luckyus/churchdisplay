@@ -49,7 +49,7 @@ function connectHardware() {
 			proxy.value = parseFloat(readout.temperature.toFixed(2));
 			model.humidity.value = parseFloat(readout.humidity.toFixed(2));
 
-			console.info('Temperature: %s C, humidity %s \%', model.temperature.value.toFixed(2), model.humidity.value.toFixed(2));
+			// console.info('Temperature: %s C, humidity %s \%', model.temperature.value.toFixed(2), model.humidity.value.toFixed(2));
 
 			setTimeout(function() {
 				sensor.read();
@@ -73,5 +73,5 @@ function simulate() {
 }
 
 function showValue() {
-	console.info('Temperature: %s C, humidity %s \%', model.temperature.value, model.humidity.value);
+	// console.info('Temperature: %s C, humidity %s \%', model.temperature.value, model.humidity.value);
 }
