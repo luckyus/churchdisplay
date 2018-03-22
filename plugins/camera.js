@@ -1,7 +1,9 @@
 var raspiCam = require('raspicam');
-var camera = new raspiCam({ 'mode': 'photo', 'output': 'image.jpg' });
+var camera;
 
 exports.start = function(opts) {
+	console.log('starting camera...');
+	camera = new raspiCam(opts);
 	camera.start();
 };
 
@@ -9,6 +11,7 @@ exports.stop = function() {
 	camera.stop();
 };
 
+/*
 camera.on('start', function() {
 	console.log('starting camera...');
 });
@@ -23,3 +26,5 @@ camera.on("stop", function() {
 
 //listen for the process to exit when the timeout has been reached
 camera.on("exit", function() {});
+
+*/
