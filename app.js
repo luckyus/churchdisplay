@@ -116,6 +116,7 @@ app.get('/event3', sse, function(req, res) {
 
 app.get('/eventPhoto', sse, function(req, res) {
 	watch(folderCamera, { recursive: true }, (evt, name) => {
+		console.log('folderCamera changed!!!');
 		res.sse('');
 	});
 });
