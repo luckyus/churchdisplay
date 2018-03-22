@@ -27,11 +27,8 @@ var coapPlugin = require('./plugins/coapPlugin');
 coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
 */
 
-// debug
-console.log('starting ./plugins/camera...');
-
 var camera = require('./plugins/camera');
-camera.start({ 'mode': 'photo', 'output': 'image01.jpg' });
+camera.start({ mode: 'timelapse', output: 'image%04d.jpg' });
 
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
