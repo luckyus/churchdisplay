@@ -103,7 +103,9 @@
 			var sourcePhoto = new EventSource('./eventPhoto');
 			sourcePhoto.onmessage = (event) => {
 				console.log('new camera photo!!!');
+				var now = new Date();
 				var fileName = event.data + '?' + now.getTime();
+				console.log('new camera photo file:' + fileName + '...');
 				$('#imgCamera').attr('src', './camera/' + fileName);
 			};
 
