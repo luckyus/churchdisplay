@@ -20,10 +20,10 @@ var handler = {
 	}
 };
 
-/*
 var dhtPlugin = require('./plugins/DHT22SensorPlugin');
 dhtPlugin.start(model, { 'simulate': false, 'frequency': 2000 }, handler);
 
+/*
 var coapPlugin = require('./plugins/coapPlugin');
 coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
 */
