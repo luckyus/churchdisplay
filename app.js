@@ -31,10 +31,14 @@ coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
 var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
+
 var folderCamera = path.resolve(__dirname, 'public/camera');
+var fileCamera = 'image.jpg';
+var fullpathCamera = folderCamera + '/' + fileCamera;
 
 var camera = require('./plugins/camera');
-camera.start({ mode: 'timelapse', output: folderCamera + '/image.jpg', t: 60000, tl: 10 });
+// camera.start({ mode: 'timelapse', output: fullpath, t: 60000, tl: 10 });
+camera.start(['-o', fullpathCamera]);
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 
@@ -113,10 +117,10 @@ app.get('/event3', sse, function(req, res) {
 });
 
 app.get('/eventPhoto', sse, function(req, res) {
-	watch(folderCamera, { recursive: true }, (evt, name) => {
+	watch(fullpathCamera, { recursive: true }, (evt, name) => {
 		console.log('folderCamera changed!!!');
 		fs.readdir(folderCamera, (err, files) => {
-			res.sse(`data: ${files[0]}\n\n`);
+			res.sse(`data: ${fileCamera}\n\n`);
 		});
 	});
 });
