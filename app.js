@@ -34,7 +34,7 @@ var folderRight = path.resolve(__dirname, 'public/right');
 var folderCamera = path.resolve(__dirname, 'public/camera');
 
 var camera = require('./plugins/camera');
-camera.start({ mode: 'timelapse', output: folderCamera + '/image.jpg', t: 60000, tl: 5000 });
+camera.start({ mode: 'timelapse', output: folderCamera + '/image.jpg', t: 60000, tl: 10 });
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 

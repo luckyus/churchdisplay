@@ -1,4 +1,4 @@
-var raspiCam = require('raspicam');  // https://github.com/troyth/node-raspicam
+var raspiCam = require('raspicam'); // https://github.com/troyth/node-raspicam
 var camera;
 
 exports.start = function(opts) {
@@ -9,24 +9,13 @@ exports.start = function(opts) {
 
 	camera.on('start', function() {
 		console.log('starting camera...');
-	});		
+	});
+
+	camera.on('read', function() {});
+	camera.on("stop", function() {});
+	camera.on("exit", function() {});
 };
 
 exports.stop = function() {
 	camera.stop();
 };
-
-/*
-
-camera.on("read", function(err, timestamp, filename) {
-
-});
-
-camera.on("stop", function() {
-
-});
-
-//listen for the process to exit when the timeout has been reached
-camera.on("exit", function() {});
-
-*/
