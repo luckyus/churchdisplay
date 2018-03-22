@@ -1,4 +1,4 @@
-var raspiCam = require('raspicam');
+var raspiCam = require('raspicam');  // https://github.com/troyth/node-raspicam
 var camera;
 
 exports.start = function(opts) {
