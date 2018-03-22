@@ -39,7 +39,7 @@ var fullpathCamera = folderCamera + '/' + fileCamera;
 var camera = require('./plugins/camera');
 // camera.start({ mode: 'timelapse', output: fullpath, t: 60000, tl: 10 });
 // camera.start(['-o', fullpathCamera, '-t', Number.MAX_SAFE_INTEGER.toString(), '-tl', '100']);
-camera.start(['-o', fullpathCamera, '-t', '999999999', '-tl', '10']);
+camera.start(['-o', fullpathCamera, '-vf', '-t', '999999999', '-tl', '10']);
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 
