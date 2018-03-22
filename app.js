@@ -27,6 +27,9 @@ var coapPlugin = require('./plugins/coapPlugin');
 coapPlugin.start(model, { 'simulate': false, 'frequency': 10000 });
 */
 
+// debug
+console.log('starting ./plugins/camera...');
+
 var camera = require('./plugins/camera');
 camera.start({ 'mode': 'timelapse', 'output': 'image%04d.jpg' });
 
