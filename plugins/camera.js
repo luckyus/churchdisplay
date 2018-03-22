@@ -30,15 +30,15 @@ exports.stop = function() {
 };
 
 function startStreaming(opts) {
-
+	var args = opts;
 	console.log('spawn...');
-	console.log(opts);
-	spawn('raspistill', opts);
+	console.log(args);
+	spawn('raspistill', args);
 	console.log('spawn done!');
 
 	if (isStop == false) {
-		setTimeout((opts) => {
-			startStreaming(opts);
+		setTimeout((args) => {
+			startStreaming(args);
 		}, 1000);
 	}
 }
