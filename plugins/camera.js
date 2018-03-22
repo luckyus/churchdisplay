@@ -31,13 +31,14 @@ exports.stop = function() {
 
 function startStreaming(opts) {
 
-	console.log('startStreaming...');
-
+	console.log('spawn...');
+	console.log(opts);
 	spawn('raspistill', opts);
+	console.log('spawn done!');
 
 	if (isStop == false) {
 		setTimeout((opts) => {
 			startStreaming(opts);
-		}, 100);
+		}, 1000);
 	}
 }
