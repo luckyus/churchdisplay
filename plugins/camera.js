@@ -7,7 +7,12 @@ var proc;
 exports.start = function(opts) {
 	console.log('starting carema...');
 	console.log(opts);
-	proc = child_process.spawn('raspistill', opts);	
+	// proc = child_process.spawn('raspistill', opts);	
+	proc = child_process.spawn("ffmpeg", [
+		"-i", "rtsp://admin:12345@192.168.1.234:554", "-vcodec", "copy", "-f",
+		"mp4", "-reset_timestamps", "1", "-movflags", "frag_keyframe+empty_moov",
+		"-" // output to stdout
+	], { detached: false });
 
 	/*
 	console.log('starting camera...');
