@@ -46,14 +46,38 @@ camera.start(['-o', fullpathCamera, '-vf', '-n', '-md', '7', '-q', '50', '-t', '
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 const FFmpeg = require('./ffmpeg');
-app.get('/stream', function(req, res){
+app.get('/stream', function(req, res) {
 
 	console.log('stream...');
 
 	const recorder = FFmpeg.getInstance();
 
+	/*
 	res.writeHead(200, {
 		"content-type": "video/webm",
+	});
+	*/
+
+	var total = 999999999; // fake a large file
+	var partialstart = 0;
+	var partialend = total - 1;
+
+	if (range !== undefined) {
+		var parts = range.replace(/bytes=/, "").split("-");
+		partialstart = parts[0];
+		partialend = parts[1];
+	}
+
+	var start = parseInt(partialstart, 10);
+	var end = partialend ? parseInt(partialend, 10) : total; // fake a large file if no range reques 
+
+	var chunksize = (end - start) + 1;
+
+	resp.writeHead(206, {
+		'Transfer-Encoding': 'chunked',
+		'Content-Type': 'video/mp4',
+		'Content-Length': chunksize, // large size to fake a file
+		'Accept-Ranges': 'bytes ' + start + "-" + end + "/" + total
 	});
 
 	recorder.stdout.on('data', res.write);
