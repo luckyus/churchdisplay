@@ -41,14 +41,15 @@ function killInstance() {
 		instance.kill();
 		instance = null;
 	}
-};
+}
 
 function getInstance() {
 	connections += 1;
 	if (!instance) instance = start();
 	return instance;
-};
+}
 
 function start() {
+	console.write('starting ffmpeg...');
 	return spawn(ffmpegPath, ffmpegOptions);
-};
+}

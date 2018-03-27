@@ -47,6 +47,9 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 
 const FFmpeg = require('./ffmpeg');
 app.get('/stream', function(req, res){
+
+	console.write('stream...');
+
 	const recorder = FFmpeg.getInstance();
 
 	res.writeHead(200, {
