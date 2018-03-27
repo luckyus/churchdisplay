@@ -50,6 +50,6 @@ function getInstance() {
 }
 
 function start() {
-	console.write('starting ffmpeg...');
+	console.log('starting ffmpeg...');
 	return spawn(ffmpegPath, ffmpegOptions);
 }
