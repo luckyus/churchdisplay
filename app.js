@@ -32,6 +32,7 @@ var folderUpperLeft = path.resolve(__dirname, 'public/upperLeft');
 var folderLowerLeft = path.resolve(__dirname, 'public/lowerLeft');
 var folderRight = path.resolve(__dirname, 'public/right');
 
+/*
 var folderCamera = path.resolve(__dirname, 'public/camera');
 var fileCamera = 'image.jpg';
 var fullpathCamera = folderCamera + '/' + fileCamera;
@@ -40,8 +41,22 @@ var camera = require('./plugins/camera');
 // camera.start({ mode: 'timelapse', output: fullpath, t: 60000, tl: 10 });
 // camera.start(['-o', fullpathCamera, '-t', Number.MAX_SAFE_INTEGER.toString(), '-tl', '100']);
 camera.start(['-o', fullpathCamera, '-vf', '-n', '-md', '7', '-q', '50', '-t', '999999999', '-tl', '500']);
+*/
 
 app.use(express.static(path.resolve(__dirname, 'public')));
+
+const FFmpeg = require('./ffmpeg');
+app.get('/stream', function(req, res){
+	const recorder = FFmpeg.getInstance();
+
+	res.writeHead(200, {
+		"content-type": "video/webm",
+	});
+
+	recorder.stdout.on('data', res.write);
+	req.on('close', FFmpeg.killInstance);
+});
+
 
 app.get('/coapDevice/sensors/co2', (req, res, next) => {
 	req.result = model.things.coapDevice.sensors.co2;
@@ -117,6 +132,7 @@ app.get('/event3', sse, function(req, res) {
 	});
 });
 
+/*
 app.get('/eventPhoto', sse, function(req, res) {
 	watch(fullpathCamera, { recursive: true }, (evt, name) => {
 		fs.readdir(folderCamera, (err, files) => {
@@ -124,6 +140,7 @@ app.get('/eventPhoto', sse, function(req, res) {
 		});
 	});
 });
+*/
 
 // reload page when restart node (180125)
 app.use('/reload', express.static(path.resolve(__dirname, 'node_modules')));
