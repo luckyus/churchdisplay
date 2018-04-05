@@ -217,7 +217,11 @@
 				};
 			}
 
-			subscribeToWs();
+			// reload page when restart node (180405)
+			refresh();
+
+			// debug
+			// subscribeToWs();
 		});
 	</script>
 </body>
