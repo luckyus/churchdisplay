@@ -153,7 +153,7 @@
 						});
 					}
 				}
-			}, 30890);
+			}, 10890);
 
 			setInterval(function() {
 				var $img = $('#imgLowerLeft');
@@ -171,7 +171,7 @@
 						$(this).fadeIn(400);
 					});
 				}
-			}, 21234);
+			}, 12234);
 
 			setInterval(function() {
 				var $img = $('#imgRight');
@@ -189,7 +189,7 @@
 						$(this).fadeIn(400);
 					});
 				}
-			}, 60567);
+			}, 15567);
 
 			// reload page at 4:30 everyday (180125)
 			refreshPage(4, 30, 0);
@@ -230,7 +230,11 @@
 				};
 			}
 
-			subscribeToWs();
+			// reload page when restart node (180405)
+			refresh();
+
+			// debug
+			// subscribeToWs();
 		});
 	</script>
 </body>
