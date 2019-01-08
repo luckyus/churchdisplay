@@ -1,4 +1,6 @@
-var express = require('express'); // using express
+var express = require('express');
+var cors = require('cors');
+
 const fs = require('fs'); // using file system module
 
 var app = express();
